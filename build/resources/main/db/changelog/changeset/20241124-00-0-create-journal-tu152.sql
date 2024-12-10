@@ -2,46 +2,51 @@
 --changeset Bukevsky:20241124-00-0-create-journal-tu152.sql
 --comment Создание таблицы журнала ТУ-152
 
-CREATE TABLE IF NOT EXISTS JournalTu152 (
-        id BIGSERIAL PRIMARY KEY,
-        date DATE,
-        direction TEXT,
-        train TEXT,
-        weight FLOAT,
-        axles TEXT,
-        reception_start_time INT,
-        incoming_driver_name TEXT,
-        incoming_driver_assistant_name TEXT,
-        handover_time INT,
-        outgoing_driver_name TEXT,
-        outgoing_driver_assistant_name TEXT,
-        acceptance_time INT,
-        fuel_amount FLOAT,
-        remarks_defects TEXT,
-        handover_signature BOOLEAN,
-        acceptance_signature BOOLEAN,
-        defect_correction_date DATE,
-        position TEXT,
-        final_signature BOOLEAN
-);
+CREATE TABLE IF NOT EXISTS locomotive_technical_state_log (
+    id BIGSERIAL PRIMARY KEY,         -- Идентификатор записи
+    date DATE,                        -- Дата
+    direction VARCHAR(255),           -- Направление
+    train VARCHAR(255),               -- Номер поезда
+    weight INT,                       -- Вес
+    axles VARCHAR(255),               -- Оси
+    acceptance_time TIME,             -- Время приемки
+    arrival_driver VARCHAR(255),      -- Водитель на прибытие
+    arrival_assistant VARCHAR(255),   -- Помощник на прибытие
+    arrival_time TIME,                -- Время прибытия
+    departure_driver VARCHAR(255),    -- Водитель на отправление
+    departure_assistant VARCHAR(255), -- Помощник на отправление
+    departure_time TIME,              -- Время отправления
+    fuel_option VARCHAR(255),         -- Опция топлива
+    electricity_reading VARCHAR(255), -- Показания электричества
+    fuel_amount INT,                  -- Количество топлива
+    comments TEXT,                    -- Комментарии
+    signature_given BOOLEAN,          -- Подпись дана
+    signature_received BOOLEAN,       -- Подпись получена
+    repair_date DATE,                 -- Дата ремонта
+    position VARCHAR(255),            -- Позиция
+    signature BOOLEAN
+    );
 
-comment on table JournalTu152 is 'Журнал ТУ-152';
-comment on column JournalTu152.date is 'Дата создания журнала';
-comment on column JournalTu152.direction is 'Направление';
-comment on column JournalTu152.train is 'Поезд';
-comment on column JournalTu152.weight is 'Вес поезда';
-comment on column JournalTu152.axles is 'Оси';
-comment on column JournalTu152.reception_start_time is 'Начало приемки';
-comment on column JournalTu152.incoming_driver_name is 'ФИО машиниста прибывшего';
-comment on column JournalTu152.incoming_driver_assistant_name is 'ФИО помощника машиниста прибывшего';
-comment on column JournalTu152.handover_time is 'Время сдачи';
-comment on column JournalTu152.outgoing_driver_name is 'ФИО машиниста отправляющего';
-comment on column JournalTu152.outgoing_driver_assistant_name is 'ФИО помощника машиниста отправляющего';
-comment on column JournalTu152.acceptance_time is 'Время принятия';
-comment on column JournalTu152.fuel_amount is 'Количество топлива';
-comment on column JournalTu152.remarks_defects is 'Замечания и неисправности';
-comment on column JournalTu152.handover_signature is 'Подпись сдающего';
-comment on column JournalTu152.acceptance_signature is 'Подпись принимающего';
-comment on column JournalTu152.defect_correction_date is 'Дата устранения неисправности';
-comment on column JournalTu152.position is 'Должность';
-comment on column JournalTu152.final_signature is 'Подпись устраняющего неисправность';
+comment on table locomotive_technical_state_log is 'Журнал ТУ-152';
+COMMENT ON COLUMN locomotive_technical_state_log.id IS 'Уникальный идентификатор записи';
+COMMENT ON COLUMN locomotive_technical_state_log.date IS 'Дата записи в журнале';
+COMMENT ON COLUMN locomotive_technical_state_log.direction IS 'Направление движения';
+COMMENT ON COLUMN locomotive_technical_state_log.train IS 'Номер поезда';
+COMMENT ON COLUMN locomotive_technical_state_log.weight IS 'Вес состава (в тоннах)';
+COMMENT ON COLUMN locomotive_technical_state_log.axles IS 'Количество осей состава';
+COMMENT ON COLUMN locomotive_technical_state_log.acceptance_time IS 'Время приемки локомотива';
+COMMENT ON COLUMN locomotive_technical_state_log.arrival_driver IS 'Имя водителя прибывающего состава';
+COMMENT ON COLUMN locomotive_technical_state_log.arrival_assistant IS 'Имя помощника водителя прибывающего состава';
+COMMENT ON COLUMN locomotive_technical_state_log.arrival_time IS 'Время прибытия состава';
+COMMENT ON COLUMN locomotive_technical_state_log.departure_driver IS 'Имя водителя отправляющегося состава';
+COMMENT ON COLUMN locomotive_technical_state_log.departure_assistant IS 'Имя помощника водителя отправляющегося состава';
+COMMENT ON COLUMN locomotive_technical_state_log.departure_time IS 'Время отправления состава';
+COMMENT ON COLUMN locomotive_technical_state_log.fuel_option IS 'Опция топлива (например, дизель или электричество)';
+COMMENT ON COLUMN locomotive_technical_state_log.electricity_reading IS 'Показания электроэнергии';
+COMMENT ON COLUMN locomotive_technical_state_log.fuel_amount IS 'Количество топлива (в литрах)';
+COMMENT ON COLUMN locomotive_technical_state_log.comments IS 'Примечания или комментарии';
+COMMENT ON COLUMN locomotive_technical_state_log.signature_given IS 'Подтверждение подписи передающей стороны';
+COMMENT ON COLUMN locomotive_technical_state_log.signature_received IS 'Подтверждение подписи принимающей стороны';
+COMMENT ON COLUMN locomotive_technical_state_log.repair_date IS 'Дата ремонта';
+COMMENT ON COLUMN locomotive_technical_state_log.position IS 'Позиция локомотива';
+COMMENT ON COLUMN locomotive_technical_state_log.signature IS 'Итоговая подпись';
